@@ -1,0 +1,191 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    font-family: sans-serif;
+    flex-direction: column; /* Center button below game */
+    overscroll-behavior: none; /* Prevent pull-to-refresh */
+    touch-action: manipulation; /* Improve touch responsiveness */
+}
+
+#game-container {
+    position: relative;
+    width: 350px;
+    max-width: 95vw; /* Ensure it fits smaller screens */
+    height: 600px;
+    max-height: 85vh; /* Ensure it fits smaller screens */
+    background: linear-gradient(180deg, #a1c4fd 0%, #c2e9fb 100%); /* Light blue gradient */
+    border: 2px solid #00796b; /* Teal border */
+    border-radius: 15px; /* Slightly more rounded corners */
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    cursor: grab; /* Indicate potential interaction */
+    user-select: none; /* Prevent text selection */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+}
+
+#game-container.active {
+    cursor: grabbing;
+}
+
+
+#score-display {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 1.4em; /* Larger score */
+    font-weight: bold;
+    color: #004d40; /* Dark teal text */
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+    padding: 5px 10px;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+#timer-display {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #004d40;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 5px 10px;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+
+#play-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: url('path/to/optional/background.svg') no-repeat center center / cover; */ /* Optional background */
+}
+
+.point-item {
+    position: absolute;
+    width: 40px; /* Slightly larger */
+    height: 40px;
+    /* background-color: #4caf50; Green color like Blum */
+    background: radial-gradient(circle, #ffeb3b 40%, #fbc02d 80%); /* Gold coin look */
+    border: 2px solid #c79100; /* Darker gold border */
+    border-radius: 50%;
+    /* Simple falling animation */
+    animation: fall linear forwards; /* Duration set in JS */
+    cursor: pointer; /* Indicate clickable */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #5d4037; /* Brownish text for contrast */
+    font-size: 0.9em;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+    transform: translateY(-50px); /* Start off screen */
+    opacity: 1;
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out; /* Smooth click feedback */
+}
+
+/* SVG Coin alternative - uncomment CSS below and add SVG inside .point-item div in JS
+.point-item svg {
+    width: 80%;
+    height: 80%;
+    fill: #ffeb3b;
+    stroke: #c79100;
+    stroke-width: 2px;
+}
+*/
+
+.point-item:active {
+    transform: scale(0.95); /* Click feedback */
+}
+
+/* Optional: Add a visual effect for collected items */
+.point-item.collected {
+    animation: collect-effect 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Bouncier effect */
+    /* background-color: gold; /* Change color on collect */
+    pointer-events: none; /* Prevent clicking again during animation */
+}
+
+@keyframes fall {
+    /* Start position is set inline */
+    100% { transform: translateY(calc(600px + 50px)); opacity: 1; } /* Fall off screen */
+}
+
+@keyframes collect-effect {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.4) rotate(15deg); opacity: 0.8; }
+    100% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+}
+
+#start-button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#start-button:hover {
+    background-color: #004d40;
+}
+
+#start-button:active {
+    transform: scale(0.98);
+}
+
+
+#start-button:disabled {
+    background-color: #bdbdbd;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Simple pulse animation for attention */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#start-button:not(:disabled) {
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Message Overlay */
+#message-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#message-overlay.visible {
+    opacity: 1;
+}
