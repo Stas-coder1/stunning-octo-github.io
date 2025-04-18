@@ -16,12 +16,12 @@ cg = CoinGeckoAPI()
 BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '7238971393:AAHHfuEo6CuLbVhx4TGaFHgrUIv_ALgZzkA') # Use provided token as fallback
 # !!! IMPORTANT: Replace this with the ACTUAL URL where your game is hosted !!!
 # Example: If hosted on GitHub Pages, it might look like https://your-username.github.io/your-repo-name/
-GAME_URL = 'https://web.dger345.temp.swtest.ru' # <<< --- !!! REPLACE THIS WITH YOUR ACTUAL GAME URL !!!
+GAME_URL = 'https://tapalkatap.xyz' # <<< --- !!! REPLACE THIS WITH YOUR ACTUAL GAME URL !!!
 
 if not BOT_TOKEN:
     logger.error("Error: Telegram Bot Token not found. Set TELEGRAM_BOT_TOKEN environment variable.")
     exit()
-if GAME_URL == 'https://web.dger345.temp.swtest.ru':
+if GAME_URL == 'https://tapalkatap.xyz':
     logger.warning("Warning: GAME_URL is set to the default placeholder. Replace it with your actual game URL.")
 
 
@@ -76,7 +76,7 @@ def step(message):
 # --- Game Section ---
 def send_game_link(message):
     """Sends an inline button linking to the web game."""
-    if GAME_URL == 'https://web.dger345.temp.swtest.ru':
+    if GAME_URL == 'https://tapalkatap.xyz':
         bot.send_message(message.chat.id,
                          "⚠️ **Game URL not configured!** Please ask the bot administrator to set the `GAME_URL` in the bot's code.")
         main(message) # Go back to main menu
