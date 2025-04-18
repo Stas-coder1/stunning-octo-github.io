@@ -26,6 +26,6 @@
     </div>
     <button id="start-button">Старт</button>
 
-    <script src="https://stunning-octo-github.io"></script>
+    <script src="https://tapalkatap.xyz"></script>
 </body>
 </html>
